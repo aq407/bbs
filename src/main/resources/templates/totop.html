@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/toup.css">
+    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+<div th:fragment="copy">
+    <div class="actGotop"><a href="javascript:;" title="返回顶部"></a></div>
+    <div><a href="#" id="foot">底部</a></div>
+    <br/> <br/> <br/> <br/> <br/>
+    <br/> <br/> <br/> <br/> <br/>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $(window).scroll(function () {
+
+                if ($(window).scrollTop() >= 100) {
+
+                    $('.actGotop').fadeIn(300);
+
+                } else {
+
+                    $('.actGotop').fadeOut(300);
+
+                }
+
+            });
+
+            $('.actGotop').click(function () {
+
+                $('html,body').animate({scrollTop: '0px'}, 800);
+            });
+
+
+
+
+        });
+
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+a, img {
+    border: 0;
+}
+
+body {
+    background: url(../image/blog7year_videobg.png);
+    font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+}
+
+/* actGotop */
+
+.actGotop {
+    position: fixed;
+    _position: absolute;
+    bottom: 100px;
+    right: 50px;
+    width: 150px;
+    height: 195px;
+    display: none;
+}
+
+.to_top{
+
+
+    position: fixed;
+    _position: absolute;
+    top: 100px;
+    right: 50px;
+    width: 150px;
+    height: 195px;
+    display: none;
+}
+
+.actGotop a, .actGotop a:link {
+    width: 150px;
+    height: 195px;
+    display: inline-block;
+    background: url(../image/blog7year_gotop.png) no-repeat;
+    _background: url(../image/blog7year_gotopd.gif) no-repeat;
+    outline: none;
+}
+
+
+.top a, .top a:link{
+    width: 150px;
+    height: 195px;
+    display: inline-block;
+    background: url(../img/22.jpg) no-repeat;
+    _background: url(../image/blog7year_gotopd.gif) no-repeat;
+    outline: none;
+}
+
+
+
+
+.actGotop a:hover {
+    background: url(../image/blog7year_gotopd.gif) no-repeat;
+    outline: none;
+}
+

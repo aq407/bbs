@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../bootstrap/bootstrap.offcanvas.min.css">
+    <script src="../static/bootstrap/jquery-3.2.1.min.js"></script>
+    <script src="../bootstrap/bootstrap.offcanvas.min.js"></script>
+
+</head>
+
+<body class="body-offcanvas">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/}">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="/">首页</a></li>
+                <li><a th:href="@{/sign}" th:if="${session.username == null}">注册</a></li>
+                <li><span th:if="${session.username != null}"><img th:src="${session.avatar}" class="img-circle image-responsive" style="width: 50px;"></span></li>
+                <li>
+
+                    <a th:if="${session.username != null}" th:text="${session.username}" ></a>
+
+                </li>
+                <li><a th:if="${session.username == null}" th:text="登录" href="/login"> </a></li>
+                <li><a type="button" class="btn btn-info" th:href="@{/public}" >发布</a></li>
+            </ul>
+
+
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+</body>
+
+</html>
+
+
+<!--<ul class="nav navbar-nav navbar-right">-->
+<!--    <li class="active"><a href="/">首页</a></li>-->
+<!--    <li><a href="../user/registration">注册</a></li>-->
+<!--    <li><a th:if="${session.username != null}" th:text="${session.username}">登录</a></li>-->
+<!--    <li><a th:if="${session.username == null}" th:text="登录"> </a></li>-->
+<!--    <li><a type="button" class="btn btn-info" th:href="@{/public}">发布</a></li>-->
+<!--</ul>-->
+
+
+<!--<ul class="nav navbar-nav navbar-right">-->
+<!--    <li class="active"><a href="/">首页</a></li>-->
+<!--    <li><a href="../user/registration">注册</a></li>-->
+<!--    <li><a th:if="${session.username != null}" th:text="${session.username}">登录</a></li>-->
+<!--    <li><a th:if="${session.username == null}" th:text="登录"> </a></li>-->
+<!--    <li><a type="button" class="btn btn-info" th:href="@{/public}">发布</a></li>-->
+<!--</ul>-->

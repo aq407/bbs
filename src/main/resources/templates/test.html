@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../bootstrap/bootstrap.offcanvas.min.css">
+
+
+</head>
+
+<body>
+<form action="/ajax" method="post">
+
+
+
+<input type="text" name="text" id="text">
+<input type="text" name="pwd" id="pwd">
+<input type="submit" value="tj">
+
+</form>
+
+</body>
+<script src="../bootstrap/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    alert(1);
+var text = $("#text").val;
+var pwd = $("#pwd").val;
+
+    $.ajax({
+        cache: true,
+        type: "POST",
+        url: "/ajax",
+        data: {
+            "text" : text,
+            "pwd" : pwd
+        },
+        dataType:"json",
+
+        success: function (data) {
+
+            if (data.result == "success"){
+
+                alert("成功")
+            }
+        }
+
+    })
+</script>
+
+
+</html>
+
+
