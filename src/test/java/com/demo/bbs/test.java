@@ -1,24 +1,35 @@
 package com.demo.bbs;
 
-import com.demo.bbs.entity.ReplyEntity;
-import com.demo.bbs.entity.UserEntity;
-import com.demo.bbs.mapper.QuestionMapper;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class test {
-    @Autowired
-    private QuestionMapper questionMapper;
+public class test implements Runnable {
 
-    @Test
-    public void test(){
+    private int ticket = 100;
 
-        List<ReplyEntity> list = questionMapper.replyList(1L);
+    Object object = new Object();
 
-        System.out.println(list);
+    Lock lock = new ReentrantLock();
+
+    @Override
+    public void run() {
+
+        while (true) {
+            lock.lock();
+
+                if (ticket > 0) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName() + "--->正在卖" + ticket + "张票");
+                    ticket--;
+                }
+                lock.unlock();
+
+        }
+
     }
-
 }

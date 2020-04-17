@@ -11,7 +11,7 @@
     <script src="../bootstrap/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../bootstrap/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/toup.css">
+
     <script src="../js/ajax.js"></script>
 
 
@@ -75,12 +75,12 @@
                     <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
                               id="text1"></textarea>
                     <!--                    &lt;!&ndash; 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 &ndash;&gt;-->
-<!--                    <textarea class="editormd-html-textarea" name="editormd-html-textarea" id="htmlContent"></textarea>-->
+                    <!--                    <textarea class="editormd-html-textarea" name="editormd-html-textarea" id="htmlContent"></textarea>-->
                 </div>
 
 
             </form>
-            <button  class="btn btn-info" style="margin-left: 100%;margin-top: -10%;">回复</button>
+            <button class="btn btn-info" style="margin-left: 100%;margin-top: -10%;">回复</button>
         </div>
     </div>
 
@@ -97,7 +97,7 @@
         // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
     });
 
-
+    //文本编辑器js
     $(function () {
 
         editormd("test-editormd", {
@@ -105,7 +105,7 @@
             width: "100%",
             height: 640,
             syncScrolling: "single",
-            //你的lib目录的路径，我这边用JSP做测试的
+            //你的lib目录的路径，
             tocm: true, // Using [TOCM]
             tex: true, // 开启科学公式TeX语言支持，默认关闭
             flowChart: true, // 开启流程图支持，默认关闭
@@ -134,63 +134,55 @@
 </script>
 
 
-
 <script type="text/javascript">
 
 
+    $(".btn").unbind('click').bind('click', function () {
 
-        $(".btn").unbind('click').bind('click',function(){
+        $("#reply")[0].reset();
 
-            $("#reply")[0].reset();
+        var text = $("#text").val();
+        var pwd = $("#pwd").text();
+        var text1 = $('#text1').val();
+        var title = $('#title').val();
 
+        var reply = $("#reply").attr("action");
+        if (text1 == null || text1 == "") {
+            alert("请输入回复内容")
+        } else {
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: reply,
 
+                data: {
+                    "text": text,
+                    "pwd": pwd,
+                    "text1": text1,
+                    "title": title
 
-            alert(1);
-            var text = $("#text").val();
-            var pwd = $("#pwd").text();
-            var text1 = $('#text1').val();
-            var title = $('#title').val();
+                },
 
-            var reply = $("#reply").attr("action");
-            if (text1 == null || text1 == ""){
-                alert("请输入回复内容")
-            }else {
-                $.ajax({
-                    cache: true,
-                    type: "POST",
-                    url: reply,
+                dataType: "json",
 
-                    data: {
-                        "text": text,
-                        "pwd": pwd,
-                        "text1": text1,
-                        "title": title
+                success: function (data) {
 
-                    },
+                    if (data.result == "success") {
 
-                    dataType: "json",
-
-                    success: function (data) {
-
-                        if (data.result == "success") {
-
-                            alert("成功")
-                            window.location.reload();
-                        } else {
-                            alert("失败")
-                        }
+                        alert("回复成功")
+                        window.location.reload();
+                    } else {
+                        alert("回复失败，请先登录");
                     }
+                }
 
-                })
-
-
-            }
+            })
 
 
+        }
 
 
-            
-        })
+    })
 
 
 </script>

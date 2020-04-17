@@ -1,9 +1,11 @@
 package com.demo.bbs.scevice;
 
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 
+/**
+ * @author Li
+ */
 public interface PageService {
 
 

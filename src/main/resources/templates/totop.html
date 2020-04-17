@@ -6,41 +6,40 @@
     <link rel="stylesheet" href="../css/toup.css">
     <script src="../bootstrap/jquery-3.2.1.min.js"></script>
 
+    <style type="text/css">
+        .goTop >img{
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .goTop{
+            position: fixed;
+            right : 20px;
+            bottom : 20px;
+        }
+    </style>
 </head>
 <body>
 <div th:fragment="copy">
-    <div class="actGotop"><a href="javascript:;" title="返回顶部"></a></div>
-    <div><a href="#" id="foot">底部</a></div>
-    <br/> <br/> <br/> <br/> <br/>
-    <br/> <br/> <br/> <br/> <br/>
-    <script type="text/javascript">
+    <div class="goTop" id="js-go_top" style="float: right"><img src="../img/icon_top.png" alt="回到顶部图片"></div>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="../js/GoToTop.js"></script>
+    <script>
+        //示例
+        $('#js-go_top').gotoTop({
 
-        $(function () {
-
-            $(window).scroll(function () {
-
-                if ($(window).scrollTop() >= 100) {
-
-                    $('.actGotop').fadeIn(300);
-
-                } else {
-
-                    $('.actGotop').fadeOut(300);
-
-                }
-
-            });
-
-            $('.actGotop').click(function () {
-
-                $('html,body').animate({scrollTop: '0px'}, 800);
-            });
-
-
-
-
+            offset : 500, //距离顶部的位置
+            speed : 300, //移动到顶部的速度
+            /*     iconSpeed : 300, //icon动画样式的速度*/
+            animationShow : {
+                'transform' : 'translate(0,0)',
+                'transition': 'transform .5s ease-in-out'
+            }, //icon动画样式显示时
+            animationHide : {
+                'transform' : 'translate(0,0)',
+                'transition': 'transform .5s ease-in-out'
+            } //icon动画样式隐藏时
         });
-
     </script>
 </div>
 

@@ -21,4 +21,5 @@ public class PublicEntity {
     private String synopsis; //简介
     //private String htmlContent;
 
+
 }

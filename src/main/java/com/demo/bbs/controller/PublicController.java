@@ -13,9 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
+/**
+ * 发表帖子
+ *
+ * @author Li
+ * Data 2020/1
+ */
 @Controller
 public class PublicController {
-
+    /**
+     * 文件上传服务
+     */
     @Autowired
     private UploadService uploadService;
 
@@ -38,10 +46,15 @@ public class PublicController {
                          HttpSession session) {
 
 
+        /**获取封面的名字和上传文件的后缀*/
         String fileName = covers.getOriginalFilename();
         String fileTyle = fileName.substring(fileName.lastIndexOf(".") + 1);
 
         System.out.println(tag);
+
+        /**
+         * 将信息插入数据库
+         */
         publicEntity.setTitle(title);
         publicEntity.setSynopsis(synopsis);
         publicEntity.setContent(editormd);

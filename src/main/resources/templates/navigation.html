@@ -36,7 +36,7 @@
                 <li><span th:if="${session.username != null}"><img th:src="${session.avatar}" class="img-circle image-responsive" style="width: 50px;"></span></li>
                 <li>
 
-                    <a th:if="${session.username != null}" th:text="${session.username}" ></a>
+                    <a th:if="${session.username != null}" th:text="${session.username}" href="/user" ></a>
 
                 </li>
                 <li><a th:if="${session.username == null}" th:text="登录" href="/login"> </a></li>

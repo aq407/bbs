@@ -1,15 +1,18 @@
 package com.demo.bbs.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.bbs.entity.PublicEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+/**
+ * @author Administrator
+ */
 @Mapper
 @Service
-public interface PublicMapper {
+public interface PublicMapper extends BaseMapper<PublicEntity> {
+
 
     void save(PublicEntity publicEntity);
 

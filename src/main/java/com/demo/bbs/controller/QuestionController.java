@@ -17,8 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 回帖
+ *
+ * @author Li
+ */
 @Controller
-
 public class QuestionController {
 
     @Autowired
@@ -29,6 +33,9 @@ public class QuestionController {
 
     ReplyEntity replyEntity = new ReplyEntity();
 
+    /**
+     * 帖子详情页面
+     */
     @GetMapping("/question/{id}")
     public String que(@PathVariable(name = "id") Integer id,
                       Model model,
@@ -49,53 +56,48 @@ public class QuestionController {
     @ResponseBody
     public Map<String, String> reply(@PathVariable(name = "id") Integer id,
 //                      @RequestParam("test-editormd-markdown-doc") String content,
-
                                      HttpSession session,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
         String text1 = request.getParameter("text1");
         String title = request.getParameter("title");
-        System.out.println("标题是：" + title);
+        Map<String, String> map = new HashMap<>(2);
+        Object loginName = session.getAttribute("userId");
 
-        session.getAttribute("username");
+        System.out.println(session.getAttributeNames());
+        if (loginName == null) {
 
-        System.out.println(session.getAttribute("username"));
+            map.put("result", "fail");
 
-        replyEntity.setPublicTitle(title);//插入回复标题
+            return map;
 
-        replyEntity.setReplyContent(text1);//插入回复内容
+        } else {
 
-        replyEntity.setReplyTime(LocalDateTime.now());//插入回复时间
-
-        replyEntity.setReplyUserid((Long) session.getAttribute("userId"));//插入回复者的id
-
-        System.out.println(session.getAttribute("userId").getClass().getTypeName());
-
-        System.out.println("回复者ID是:"+replyEntity.getReplyUserid().getClass().getTypeName());
-
-        replyEntity.setReplyPublicid(id.longValue());//插入回复主题id
-
-        HashMap h = questionMapper.findUser( replyEntity.getReplyUserid());//根据回复者id查询用户名和头像
-        System.out.println(id);
-        System.out.println(h.get("username"));
-        System.out.println(h.get("avatar"));
-        replyEntity.setUsername((String) h.get("username"));//插入回复者的用户名
-        replyEntity.setAvatar((String) h.get("avatar"));//插入回复者头像
-
-        questionMapper.save(replyEntity);
+            /**插入回复者信息*/
+            replyEntity.setPublicTitle(title);
+            replyEntity.setReplyContent(text1);
+            replyEntity.setReplyTime(LocalDateTime.now());
+            replyEntity.setReplyUserid((Long) session.getAttribute("userId"));
+            replyEntity.setReplyPublicid(id.longValue());
 
 
+            /**根据回复者id查询用户名和头像*/
+            HashMap h = questionMapper.findUser(replyEntity.getReplyUserid());
+
+
+            /**插入回复者的用户名*/
+            replyEntity.setUsername((String) h.get("username"));
+            /**插入回复者头像*/
+            replyEntity.setAvatar((String) h.get("avatar"));
+
+            questionMapper.save(replyEntity);
 //        return "redirect:/question/" + id;
 
+            System.out.println("text1 : " + text1);
 
+            map.put("result", "success");
 
-
-
-
-        System.out.println("text1 : " + text1);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("result","success");
-
-        return map;
+            return map;
+        }
     }
 }

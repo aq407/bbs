@@ -22,6 +22,6 @@ public interface PageMapper extends BaseMapper<PublicEntity> {
      * @param publicEntity 状态
      * @return 分页对象
      */
-    // 分页查询
+
     IPage<List<PublicEntity>> getUsersPage(Page page, @Param("query") PublicEntity publicEntity );
 }

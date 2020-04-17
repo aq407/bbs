@@ -6,10 +6,11 @@
     <script src="bootstrap/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../bootstrap/bootstrap.offcanvas.min.css">
     <script src="../bootstrap/bootstrap.offcanvas.min.js"></script>
-    <link rel="stylesheet" href="../css/toup.css">
+
 
 
 </head>
@@ -85,9 +86,9 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-centered">
 
-                            <li class="hidden">
-                                <a href="?p=0" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
+                            <li>
+                                <a th:href="@{/(pagel= 1)}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
 
@@ -96,7 +97,7 @@
                             </li>
 
                             <li>
-                                <a href="?p=2" aria-label="Next">
+                                <a aria-label="Next" th:href="@{/(pagel= ${p.getAPage()})}">
                                     <span aria-hidden="true">»</span>
                                 </a>
                             </li>
