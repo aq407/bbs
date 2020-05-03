@@ -244,7 +244,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
           if (!modeCfg.maxBlockquoteDepth || modeCfg.maxBlockquoteDepth >= state.quote) {
             styles.push(formatting + "-" + state.formatting[i] + "-" + state.quote);
           } else {
-            styles.push("error");
+            styles.push("templates.error.error");
           }
         }
       }
@@ -561,7 +561,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       state.linkHref = true;
       return getType(state);
     }
-    return 'error';
+    return 'templates.error.error';
   }
 
   function getLinkHrefInside(endChar) {

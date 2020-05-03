@@ -8,6 +8,7 @@ class BbsApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

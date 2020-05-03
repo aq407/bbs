@@ -52,6 +52,9 @@ public class QuestionController {
         return "question";
     }
 
+
+
+
     @PostMapping("/reply/{id}")
     @ResponseBody
     public Map<String, String> reply(@PathVariable(name = "id") Integer id,
@@ -64,7 +67,7 @@ public class QuestionController {
         Map<String, String> map = new HashMap<>(2);
         Object loginName = session.getAttribute("userId");
 
-        System.out.println(session.getAttributeNames());
+
         if (loginName == null) {
 
             map.put("result", "fail");
@@ -93,7 +96,7 @@ public class QuestionController {
             questionMapper.save(replyEntity);
 //        return "redirect:/question/" + id;
 
-            System.out.println("text1 : " + text1);
+
 
             map.put("result", "success");
 

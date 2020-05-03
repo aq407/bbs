@@ -3,18 +3,17 @@ package com.demo.bbs.controller;
 import com.demo.bbs.entity.UserEntity;
 import com.demo.bbs.mapper.SignMapper;
 import com.demo.bbs.mapper.UserMapper;
+import com.demo.bbs.scevice.SignEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 用户注册登录
@@ -35,6 +34,8 @@ public class SignController {
 
     UserEntity user = new UserEntity();
 
+    @Autowired
+    private SignEmail signEmail;
 
     @GetMapping("/login")
     public String login() {
@@ -44,31 +45,44 @@ public class SignController {
 
     @PostMapping("/sign_up")
     @ResponseBody
-    public String sign(String name,
-                       String pwd,
-                       String pwd2,
-                       String email) {
+    public HashMap sign(String r_user_name,
+                       String r_password,
+                       String r_password2,
+                       String r_email) {
 
-        HashMap<String, String> result = new HashMap<>(2);
-        System.out.println(name + pwd);
-        String username = userMapper.userNmae(name);
-        System.out.println("---" + username);
+        HashMap<Object, Object> result = new HashMap<>(2);
+        String signName = r_user_name.trim();
+        String username = userMapper.userName(signName);
         if (username != null) {
             System.out.println("该用户名已经注册");
-            return result.put("result", "repeat");
+            result.put("result", "repeat");
+            return result;
 
         }
-        if (pwd.equals(pwd2) && !name.isEmpty()) {
-            user.setUsername(name);
-            user.setPassword(pwd);
+
+        if (r_password.equals(r_password2) && !signName.isEmpty()) {
+
+
+            user.setUsername(r_user_name);
+            user.setPassword(r_password);
             user.setSigntime(LocalDateTime.now());
-            user.setEmail(email);
+            user.setEmail(r_email);
+            user.setAvatar("/img/default.jpg");
             signMapper.inserUser(user);
-            System.out.println("格式错误"+ name.isEmpty());
-            return result.put("success", "success");
+
+            result.put("result", "success");
+
+           String setSubject = "注册成功";
+           String setText = "欢迎您在" + LocalDateTime.now() + "注册了本站";
+           String setTo = user.getEmail();
+
+           signEmail.sendEmail(setSubject,setText,setTo);
+
+            return result;
         } else {
-            System.out.println("---fail");
-            return result.put("result", "fail");
+
+            result.put("result", "fail");
+            return result;
         }
 
 
@@ -80,7 +94,7 @@ public class SignController {
     @PostMapping("/sign_in")
     @ResponseBody
     public HashMap sign_in(String username, String password,
-                           HttpSession session) {
+                           HttpSession session, HttpServletRequest request) {
         System.out.println(username);
         HashMap<Object, Object> result = new HashMap(2);
         HashMap hashMap = signMapper.findAll(username);

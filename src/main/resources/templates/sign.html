@@ -1,86 +1,67 @@
 <!doctype html>
-<html lang="zh">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>翻转式用户登录注册界面设计</title>
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
-    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
-
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/sign.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
     <!--[if IE]>
     <script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
+
+
 </head>
-<body style="background-image: url(../img/back.jpg);">
-<div class="jq22-container" style="padding-top:100px">
-    <div class="login-wrap">
-        <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
-            In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-            <div class="login-form">
 
-                <div class="sign-in-htm">
-                    <div class="group">
-                        <label for="user" class="label">用户名</label>
-                        <input id="username" type="text" class="input" name="username">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">密码</label>
-                        <input id="password" type="password" class="input" data-type="password" name="password">
-                    </div>
-                    <div class="group">
-                        <input id="check" type="checkbox" class="check" checked>
-                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="button" value="Sign In" id="submit">
+<div id="wrapper" class="login-page">
+    <div id="login_form" class="form">
 
-                    </div>
-                    <div class="hr"></div>
+        <div class="register-form">
 
-                </div>
+            <input type="text" placeholder="用户名" id="r_user_name" name="r_user_name" autocomplete="off"
+                   data-container="body"
+                   data-toggle="popover" data-trigger="focus" data-placement="right"
+                   data-content="请输入账号"/>
+            <input type="password" placeholder="密码" id="r_password"
+                   name="r_password" data-container="body"
+                   data-toggle="popover" data-trigger="focus" data-placement="right"
+                   data-content="请输入密码啊"/>
+            <input type="password" placeholder="确认密码" id="r_password2" name="r_password2"
+                   data-container="body"
+                   data-toggle="popover" data-trigger="focus" data-placement="right"
+                   data-content="两次密码不一致"/>
 
-
-                <form>
-
-                    <div class="sign-up-htm">
-                        <div class="group">
-                            <label for="user" class="label">用户名</label>
-                            <input id="user" type="text" class="input" name="username">
-                        </div>
-                        <div class="group">
-                            <label for="pass" class="label">密码</label>
-                            <input id="pass" type="password" class="input" data-type="password" name="password">
-                        </div>
-                        <div class="group">
-                            <label for="pass" class="label">确认密码</label>
-                            <input id="pass2" type="password" class="input" data-type="password" name="password2">
-                        </div>
-                        <div class="group">
-                            <label for="pass" class="label">邮箱地址</label>
-                            <input id="email" type="text" class="input" name="email">
-                        </div>
-                        <div class="group">
-                            <input id="sign_up" type="submit" class="button" value="Sign Up">
-                        </div>
-                        <div class="hr"></div>
-
-                    </div>
-
-                </form>
-            </div>
+            <input type="text" placeholder="电子邮件" id="r_email" name="r_email"
+                   data-container="body"
+                   data-toggle="popover" data-trigger="focus" data-placement="right"
+                   data-content="邮箱格式不正确"/>
+            <button id="create">创建账户</button>
+            <p class="message">已经有了一个账户? <a href="#">立刻登录</a></p>
         </div>
+
+
+        <div class="login-form">
+            <input type="text" placeholder="用户名" id="user_name"/>
+            <input type="password" placeholder="密码" id="password"/>
+            <button id="login">登　录</button>
+            <p class="message">还没有账户? <a href="#">立刻创建</a></p>
+        </div>
+
     </div>
 </div>
+
+
 <script>
     $(document).ready(function () {
 
         //登录验证
-        $("#submit").click(function () {
-            var username = $("#username").val();
+        $("#login").click(function () {
+            var username = $("#user_name").val();
             var password = $("#password").val();
+
             $.ajax({
                 cache: true,
                 type: "POST",
@@ -91,10 +72,12 @@
                     "username": username,
                     "password": password
                 },
+
                 success: function (data) {
                     if (data.result == "succeed") {
                         console.log(data.result);
                         window.location.replace("/")
+                        alert("登录成功")
                     }
 
                     if (data.result == "fail") {
@@ -104,7 +87,7 @@
 
                 },
                 error: function () {
-                    console.log("调用失败")
+                    console.log("登录调用失败")
                 }
             })
         });
@@ -115,14 +98,14 @@
 <script>
     //注册验证
 
-    $("#sign_up").click(function () {
+
+    $("#create").click(function () {
 
 
-
-        var name = $("#user").val();
-        var pwd = $("#pass").val();
-        var pwd2 = $("#pass2").val();
-        var email = $("#email").val();
+        var name = $("#r_user_name").val();
+        var pwd = $("#r_password").val();
+        var pwd2 = $("#r_password2").val();
+        var email = $("#r_email").val();
 
         $.ajax(
             {
@@ -131,29 +114,160 @@
                 url: "/sign_up",
                 dataType: "json",
                 data: {
-                    "name": name,
-                    "pwd": pwd,
-                    "pwd2": pwd2,
-                    "email": email
+                    "r_user_name": name,
+                    "r_password": pwd,
+                    "r_password2": pwd2,
+                    "r_email": email
                 },
                 success: function (data) {
+                    console.log("后端返回的消息" + data.result)
+
                     if (data.result == "repeat") {
                         alert("该用户名已存在")
+                        console.log("该用户名已存在")
                     }
-                    if (data.success == "success") {
+                    if (data.result == "success") {
+                        console.log(data.result + "注册成功");
                         alert("注册成功")
+                        window.location.replace("/login")
                     }
                     if (data.result == "fail") {
                         alert("注册失败")
+                        console.log("注册失败")
                     }
                 },
-                error: function () {
-                    console.log("调用失败")
+                error: function (data) {
+                    console.log("注册调用失败" + data.result)
                 }
             }
         )
 
     })
+</script>
+
+<script type="text/javascript">
+
+    $('.message a').click(function () {
+        $('.register-form').animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+        $('.login-form').animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+    });
+
+
+</script>
+
+<script>
+    $(document).ready(function(){
+
+        $("#r_password").focus(function() {
+            var paw = $("#r_password").val()
+            if (paw.length <= 0) {
+                $(function () {
+                    $('#r_password').popover('show');
+                });
+            }
+            $("#r_password").keyup(function () {
+                var paw = $("#r_password").val()
+                console.log(paw.length)
+                if (paw.length <= 0) {
+                    $(function () {
+                        $('#r_password').popover('show');
+                    });
+                }
+
+                if (paw.length > 0){
+                    $(function () { $('#r_password').popover('hide');});
+                }
+            })
+
+        }) //密码为空弹出提示
+
+        $("#r_password2").focus(function() {
+
+            var paw = $("#r_password").val()
+            var paw2 = $("#r_password2").val()
+            if (paw != paw2) {
+                $(function () {
+                    $('#r_password2').popover('show');
+                });
+            }
+
+            $("#r_password2").keyup(function () {
+                var paw = $("#r_password").val()
+                var paw2 = $("#r_password2").val()
+
+                if (paw != paw2) {
+                    $(function () {
+                        $('#r_password2').popover('show');
+                    });
+                }
+
+                if (paw == paw2){
+                    $(function () { $('#r_password2').popover('hide');});
+                }
+            })
+
+        }) //两次密码不一致弹出提示
+
+        $("#r_user_name").focus(function() {
+
+            var paw = $("#r_user_name").val()
+            if (paw.length <= 0) {
+                $(function () {
+                    $('#r_user_name').popover('show');
+                });
+            }
+            $("#r_user_name").keyup(function () {
+                var paw = $("#r_user_name").val()
+                console.log(paw.length)
+                if (paw.length <= 0) {
+                    $(function () {
+                        $('#r_user_name').popover('show');
+                    });
+                }
+
+                if (paw.length > 0){
+                    $(function () { $('#r_user_name').popover('hide');});
+                }
+            })
+
+        }) //用户名为空弹出提示
+
+        $("#r_email").focus(function() {
+
+            var r_email = $("#r_email").val()
+            if (r_email.length <= 0) {
+                $(function () {
+                    $('#r_email').popover('show');
+                });
+            }
+
+            $("#r_email").keyup(function () {
+                var r_email = $("#r_email").val()
+                var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+
+                if (!myreg.test(r_email)) {
+                    $(function () {
+                        $('#r_email').popover('show');
+                    });
+                }
+
+                if (myreg.test(r_email)){
+                    $(function () { $('#r_email').popover('hide');});
+                }
+            })
+
+        }) //邮箱格式不正确弹出提示
+        $("input").blur(function(){
+            $('#r_password').popover('hide')
+        });
+
+    });
 </script>
 </body>
 </html>

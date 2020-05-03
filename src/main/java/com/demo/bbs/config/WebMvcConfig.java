@@ -18,8 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //注册自定义拦截器，添加拦截路径和排除拦截路径
         InterceptorRegistration registration = registry.addInterceptor(new Interceptor()); //拦截的对象会进入这个类中进行判断
 
-        registration.addPathPatterns("/public","/user","/admin","/listUser");//拦截的路径
+        registration.addPathPatterns("/public","/reply/**","/user","/admin","/listUser");//拦截的路径
 
-        registration.excludePathPatterns("/","/login","/error","/static/**","/logout","classpath:/resources/**");//放行
+        registration.excludePathPatterns("/index","/","/login","/error","/static/**","/logout","classpath:/resources/**");//放行
     }
 }

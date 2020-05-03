@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IndexMapper extends BaseMapper<PublicEntity> {
 
-//    @Select("select * from public")
-//    List<PublicEntity> listAll();
+
 
 }

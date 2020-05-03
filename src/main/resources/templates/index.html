@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="bootstrap/jquery-3.2.1.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-
+    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../bootstrap/bootstrap.offcanvas.min.css">
-    <script src="../bootstrap/bootstrap.offcanvas.min.js"></script>
-
+    <script src="../js/jq-paginator.js"></script>
 
 
 </head>
@@ -31,12 +28,11 @@
                             <div>
                                 <div>
                                     <ul class="list-unstyled list-inline">
-                                        <li class="list-inline-item"><a class="post-tag" href="/category/java">Java</a>
+                                        <li class="list-inline-item"><input class="sort" value="默认排序" type="button">
                                         </li>
-                                        <li class="list-inline-item"><a class="post-tag"
-                                                                        href="/category/python">Python</a></li>
-                                        <li class="list-inline-item"><a class="post-tag"
-                                                                        href="/category/job-hunting">求职</a></li>
+                                        <li class="list-inline-item"><input class="reverse" value="反序" type="button">
+                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -49,76 +45,116 @@
                 <div id="post-list">
                     <ul class="list-group list-custom-corner">
                         <li class="list-group-item side-borderless last-border">
-                            <div class="media" th:each="lists : ${ls}" style="margin-top: 30px;">
+                            <div class="media" style="margin-top: 30px;">
 
-                                <div class="media-left media-middle">
-                                    <a href="/user/1">
-                                        <img class="media-object img-rounded" alt="profile_pic"
-                                             width="240px" height="146px" th:src="${lists.getCovers()}"></a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="media-heading">
-
-                                        <a class="post-title" th:href="@{'question/'+${lists.getId()}}"
-                                           th:text="${lists.getTitle()}" style="font-size: 20px;"></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <p style="color: #666" th:text="${lists.getSynopsis()}"></p>
-
-                                    </div>
-                                    <div class="media-bottom" style="margin-top: 50px;">
-                                        <a class="post-tag" href="/category/python" th:text="${lists.getTag()}"></a>
-                                        <a class="post-user" href="/user/1" th:text="${lists.getUser()}"></a>
-                                        <span class="post-date" th:text="${lists.getTime()}"></span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <!--                                <div class="media-right media-middle">-->
-                                <!--                                    <div class="badge">3</div>-->
-                                <!--                                </div>-->
+                                <div id="divdata"></div>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <!-- pagination -->
-                <div class="text-center">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-centered">
-
-                            <li>
-                                <a th:href="@{/(pagel= 1)}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-
-                            <li th:each="i:${#numbers.sequence(1,p.getAPage())}">
-                                <a th:text="${i}" name="pagel" th:href="@{/(pagel=${i})}"></a>
-                            </li>
-
-                            <li>
-                                <a aria-label="Next" th:href="@{/(pagel= ${p.getAPage()})}">
-                                    <span aria-hidden="true">»</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-                <!-- end pagination -->
 
             </div>
         </div>
-
     </div>
 </div>
-
-
+<div class="demo customBootstrap" style="text-align: center">
+    <ul id="demo2" class="pagination"></ul>
+</div>
 
 <div th:insert="~{totop :: copy}"></div>
 
 
+<script>
+    $(function () {
 
+        $.ajax({
+            cache: true,
+            type: "post",
+            url: "/index",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                console.log(data.total)
+
+                $('#demo2').jqPaginator({
+
+                    totalCounts: data.total, //总数据
+                    pageSize: 10,//每页显示的数目
+                    //totalPages: 100, //总页码
+                    visiblePages: 5, //设置最多显示的页码数
+                    currentPage: 1,
+
+                    first: '<li class="first"><a href="javascript:void(0);">First</a></li>',
+                    prev: '<li class="prev"><a href="javascript:void(0);">Previous</a></li>',
+                    next: '<li class="next"><a href="javascript:void(0);">Next</a></li>',
+                    last: '<li class="last"><a href="javascript:void(0);">Last</a></li>',
+                    page: '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
+                    onPageChange: function (num) {
+                        $.ajax({
+                            cache: true,
+                            type: "post",
+                            url: "/index",
+                            data: {"pagenum": num},
+                            dataType: "json",
+                            success: function (data) {
+                                console.log(data.publicEntities.length)
+
+                                var datalength = data.publicEntities.length;
+                                var str = "";
+
+                                for (var i = 0; i < datalength; i++) {
+
+
+                                    str += "<div class='media-left media-middle'>" +
+                                        "<img style='height: 146px;width: 240px' class='media-object img-rounded' alt='profile_pic' src='" + data.publicEntities[i].covers +"'"+ ">" +
+                                        "</div>" +
+
+                                        "<div class='media-body'>" +
+
+                                        "<div class='media-heading'>" +
+
+                                        "<a class='post-title' href= 'question/ " + data.publicEntities[i].id + " ' " + ">" + data.publicEntities[i].title + "</a>" +
+
+                                        "</div>" +
+
+                                        "<div class='media-body'>" +
+
+                                        "<p style='color: #666'>" + data.publicEntities[i].synopsis + "</p>" +
+
+                                        "</div>" +
+
+                                        "<div class='media-bottom'style='margin-top: 50px;'>" +
+
+                                        "<a class='post-tag'>" + data.publicEntities[i].tag + "</a>" +
+
+                                        "<a class='post-user'>" + data.publicEntities[i].user + "</a>" +
+                                        "<span class='post-date'>" + data.publicEntities[i].time + "</span>" +
+                                        "</div>" +
+
+                                        "</div>" +
+
+                                        "<hr>"
+
+                                }
+                                document.getElementById("divdata").innerHTML = str;
+
+                                $(".clid").click(function () {
+
+                                    var user = $(this).parents("td").attr("id");
+                                    $("#userId").attr("value", user)
+
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
+
+
+</script>
 
 
 </body>

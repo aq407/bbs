@@ -32,7 +32,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/">首页</a></li>
-                <li><a th:href="@{/sign}" th:if="${session.username == null}">注册</a></li>
+                <li><a th:href="@{/login}" th:if="${session.username == null}">注册</a></li>
                 <li><span th:if="${session.username != null}"><img th:src="${session.avatar}" class="img-circle image-responsive" style="width: 50px;"></span></li>
                 <li>
 
