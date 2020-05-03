@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+
+</head>
+<body style="background: #f4f5f7">
+<div th:insert="~{navigation :: nav}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+
+            <div>
+                <img src="img/c9.webp" width="100%" height="200px"/>
+
+                <div style="margin-top: -120px">
+                    <img th:src="${session.avatar}" alt="头像" class="img-circle img-thumbnail"
+                         style="width: 120px; height: 120px;margin-left: 20px">
+                </div>
+            </div>
+
+            <div style="margin-top: 20px">
+                <div class="col-md-2 col-sm-2 col-lg-2" style="background-color: white; ">
+                    <div>
+                        <div>
+                            <form>
+                                <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+                                    <li role="presentation" class="active">
+
+
+                                        <a href="#tab1" aria-controls="home" role="tab"
+                                           data-toggle="tab">我的帖子</a>
+
+
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#tab2" aria-controls="inbox" role="tab"
+                                           data-toggle="tab">我的消息</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#tab3" aria-controls="outbox" role="tab"
+                                           data-toggle="tab">我的信息</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#tab4" aria-controls="inbox1" role="tab"
+                                           data-toggle="tab">退出登录</a>
+                                    </li>
+
+                                </ul>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-10 col-lg-10" style="background-color: white;">
+                    <div class="tab-content vertical-tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab1">
+
+
+                            <div id="post-list">
+                                <ul class="list-group list-custom-corner">
+                                    <li class="list-group-item side-borderless last-border">
+                                        <div class="media" th:each="lists : ${User}" style="margin-top: 30px;">
+
+                                            <form method="post" action="/delete/">
+                                                <input type="hidden" th:value="${lists.getId()}" name="publicId">
+
+                                                <input type="submit" value="删除" class="btn btn-info"
+                                                       style="margin-right: 10px;float: right;margin-top: 5%">
+                                            </form>
+
+
+                                            <div class="media-left media-middle">
+                                                <a href="/user/1">
+                                                    <img class="media-object img-rounded" alt="profile_pic"
+                                                         width="240px" height="146px" th:src="${lists.getCovers()}">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="media-heading">
+
+                                                    <a class="post-title" th:href="@{'question/'+${lists.getId()}}"
+                                                       th:text="${lists.getTitle()}" style="font-size: 20px;">
+
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p style="color: #666" th:text="${lists.getSynopsis()}"></p>
+
+                                                </div>
+                                                <div class="media-bottom" style="margin-top: 50px;">
+                                                    <a class="post-tag" href="/category/python"
+                                                       th:text="${lists.getTag()}"></a>
+                                                    <a class="post-user" href="/user/1"
+                                                       th:text="${lists.getUser()}"></a>
+                                                    <span class="post-date" th:text="${lists.getTime()}"></span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <!--                                <div class="media-right media-middle">-->
+                                            <!--                                    <div class="badge">3</div>-->
+                                            <!--                                </div>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="tab2">消息为空</div>
+
+                        <div role="tabpanel" class="tab-pane" id="tab3">
+
+                            <span>注册时间</span><span th:text="${userId.getSigntime()}"></span><br>
+                            <hr>
+                            <span>用户名</span><span th:text="${userId.getUsername()}"></span><br>
+                            <hr>
+                            <span>邮箱</span><span th:text="${userId.getEmail()}"></span>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="tab4">
+
+                            <form method="post" action="/exit">
+                                <div class="panel panel-success">
+                                    <div class="panel-body">
+                                        退出登录
+                                    </div>
+                                    <div class="panel-footer" style="text-align: center">
+
+                                        <span>是否确定退出当前账号</span>
+                                        <br>
+                                        <input type="submit" value="确定" class="btn btn-info">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $("#tabs").tabs();
+
+    });
+
+
+</script>
+</body>
+</html>

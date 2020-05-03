@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.bbs.mapper.SignMapper">
+    <insert id="inserUser">
+        insert into sign_up (`id`, `username`, `password`, `signtime`, `email`, `level`, `avatar`) VALUES (#{id}, #{username}, #{password}, #{signtime}, #{email}, #{level}, #{avatar});
+    </insert>
+    <select id="findAll" resultType="java.util.HashMap">
+        SELECT * from sign_up WHERE username=#{username};
+    </select>
+</mapper>

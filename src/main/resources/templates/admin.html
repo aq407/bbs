@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../css/admim.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/reset.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/highlight.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/pagination.css" media="screen">
+    <script src="../jqueryPage/pagination/common/highlight.min.js"></script>
+    <script src="../jqueryPage/pagination/jquery.pagination.js"></script>
+    <script src="../js/jq-paginator.js"></script>
+
+</head>
+<body style="background-color: rgb(122, 159, 144);">
+
+<nav class="default">
+    <div class="brand"></div>
+    <div class="container-fluid">
+        <h1 style="color: white">管理系统</h1>
+    </div>
+</nav>
+
+<div class="row" style="height: 100%;width: 100%; padding-top: 20px">
+    <div class="col-md-2 col-xs-2 col-sm-2">
+        <div>
+            <div>
+                <form>
+                    <nav>
+                        <ul class="nav" role="tablist" id="vtab"
+                            style="text-align: center">
+                            <li role="presentation" class="active" id="test">
+
+                                <a href="#tab1" aria-controls="home" role="tab"
+                                   data-toggle="tab">用户</a>
+                            </li>
+                            <li role="presentation">
+
+                                <a href="#tab2" aria-controls="inbox" role="tab"
+                                   data-toggle="tab">帖子</a>
+
+                            </li>
+                            <li role="presentation">
+
+                                <a href="#tab3" aria-controls="outbox" role="tab"
+                                   data-toggle="tab">我的信息</a>
+
+                            </li>
+                            <li role="presentation">
+
+                                <a href="#tab4" aria-controls="inbox1" role="tab"
+                                   data-toggle="tab">退出登录</a>
+
+                            </li>
+                        </ul>
+                    </nav>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-10 col-xs-10 col-sm-10" style="background-color: white; height: 100%;padding-top: 20px">
+        <div class="tab-content vertical-tab-content">
+
+
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                修改
+                            </h4>
+                        </div>
+                        <form method="post" th:action="@{/uploadUser}">
+                            <div class="modal-body" style="height: 300px">
+
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon" id="sizing-addon1">新密码</span>
+                                    <input type="text" class="form-control" aria-describedby="sizing-addon1"
+                                           name="password">
+                                </div>
+
+                                <div class="input-group input-group-lg" style="margin-top: 100px;">
+                                    <span class="input-group-addon" id="sizing-addon2">新邮箱</span>
+                                    <input type="text" class="form-control" aria-describedby="sizing-addon1"
+                                           name="userEmail">
+                                </div>
+
+                                <input id="userId" name='userId' type='hidden' value="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">关闭
+                                </button>
+                                <input type="submit" class="btn btn-primary" value="提交" style="width:50px">
+                            </div>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+            <div role="tabpanel" class="tab-pane active" id="tab1">
+                <table class="table table-hover table-bordered" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>用户名</td>
+                        <td>密码</td>
+                        <td>注册时间</td>
+                        <td>邮箱</td>
+                        <td>级别</td>
+                        <td>头像路径</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodydata"></tbody>
+                </table>
+                <div class="demo customBootstrap" style="text-align: center">
+                    <ul id="demo2" class="pagination"></ul>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab2">
+
+                <table id="table" class="table table-hover table-bordered" style="text-align: center">
+                    <thead>
+
+                    <tr>
+                        <td class="test">id</td>
+                        <td>发帖人</td>
+                        <td>发帖时间</td>
+                        <td>发帖标题</td>
+                        <td>链接</td>
+                        <td>操作</td>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="listPost">
+
+
+                    </tbody>
+
+                </table>
+
+
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="content">
+                            <div class="eg">
+                                <div class="m-style M-box11"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="tab3">这是..网络.</div>
+
+            <div role="tabpanel" class="tab-pane" id="tab4">
+<!--                <form method="post" action="/logout">-->
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            退出登录
+                        </div>
+                        <div class="panel-footer" style="text-align: center">
+
+                            <span>单击按钮退出</span>
+                            <br>
+                            <button class="btn btn-info"><a href="/exit">退出</a></button>
+                        </div>
+                    </div>
+<!--                </form>-->
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script>
+
+    $(function () {
+
+        refurbishIndex();
+        Post();
+
+    })
+
+
+    function refurbishIndex() {
+
+        $.ajax({
+            cache: true,
+            type: "post",
+            url: "/listUser",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+
+
+                $('#demo2').jqPaginator({
+
+                    totalCounts: data.total, //总数据
+                    pageSize: 5,//每页显示的数目
+                    //totalPages: 100, //总页码
+                    visiblePages: 5, //设置最多显示的页码数
+                    currentPage: 1,
+
+                    first: '<li class="first"><a href="javascript:void(0);">First</a></li>',
+                    prev: '<li class="prev"><a href="javascript:void(0);">Previous</a></li>',
+                    next: '<li class="next"><a href="javascript:void(0);">Next</a></li>',
+                    last: '<li class="last"><a href="javascript:void(0);">Last</a></li>',
+                    page: '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
+                    onPageChange: function (num) {
+                        $.ajax({
+                            cache: true,
+                            type: "post",
+                            url: "/listUser",
+                            data: {"pagenum": num},
+                            dataType: "json",
+                            success: function (data) {
+                                var datalength = data.userEntity.length;
+                                var str = "";
+                                for (var i = 0; i < datalength; i++) {
+                                    str += "<tr id='me'>" +
+                                        "<td align='center'>" + data.userEntity[i].id + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].username + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].password + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].signtime + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].email + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].level + "</td>" +
+                                        "<td align='center'>" + data.userEntity[i].avatar + "</td>" +
+                                        "<td id=" + data.userEntity[i].id + ">" +
+
+                                        "<form action='/deleteUser' method='post'>" +
+                                        "<input name='userId' type='hidden' value=" + data.userEntity[i].id + ">"
+                                        + "<input type='submit' value='删除' id='delete'>"
+                                        + "</form>" +
+                                        "<input class='hh' name='userId' type='hidden' value=" + data.userEntity[i].id + ">"
+                                        + "<input class='clid' type='button' value='修改' id='delete' data-toggle='modal' data-target='#myModal'>"
+                                        +
+                                        "</td>" +
+                                        "</tr>";
+                                }
+                                document.getElementById("tbodydata").innerHTML = str;
+
+                                $(".clid").click(function () {
+
+                                    var user = $(this).parents("td").attr("id");
+                                    $("#userId").attr("value", user)
+
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+
+
+    }
+
+
+    function Post() {
+        $.ajax({
+            cache: true,
+            type: "post",
+            url: "/listPost",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+
+
+                console.log(data);
+                var str = "";
+
+                for (var i in data) {
+
+
+                    str += "<tr>" +
+
+                        "<td align='center'>" + data[i].id + "</td>" +
+                        "<td align='center'>" + data[i].user + "</td>" +
+                        "<td align='center'>" + data[i].time + "</td>" +
+                        "<td align='center'>" + data[i].title + "</td>" +
+                        "<td align='center'>" + "<a target='_blank' href=http://127.0.0.1:9090/question/" + data[i].id + ">查看</a>" + "</td>" +
+                        "<td>\n" +
+                        "<form action='/deletePost' method='post'>" +
+                        "<input name='PostId' type='hidden' value=" + data[i].id + ">"
+                        + "<input class='btn-info btn-sm' type='submit' value='删除' id='delete'>"
+
+                        + "</form>" +
+
+                        "</td>" +
+                        "</tr>";
+
+
+                }
+                document.getElementById("listPost").innerHTML = str;
+
+                $("#delete").click(function () {
+
+                    window.location.reload();
+                })
+
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

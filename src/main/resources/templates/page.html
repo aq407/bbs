@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>pagination.js - 分页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/reset.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/highlight.min.css" media="screen">
+    <!--<link rel="stylesheet" type="text/css" href="./common/common.css" media="screen">-->
+    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/pagination.css" media="screen">
+    <script src="../jqueryPage/pagination/common/jquery.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+    <script src="../bootstrap/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>标题</td>
+        <td>封面</td>
+        <td>标签</td>
+        <td>发表者</td>
+        <td>时间</td>
+        <td>简介</td>
+    </tr>
+    </thead>
+    <tbody id="tbodydata"></tbody>
+</table>
+
+
+<div class="wrapper">
+    <div class="container">
+        <div class="content">
+            <div class="eg">
+                <div class="m-style M-box11"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="setPageDiv">
+    <div class="Pagination" id="pagination"></div>
+</div>
+<input type="hidden" th:value="${dataAll}" id="count">
+
+<script src="../jqueryPage/pagination/common/highlight.min.js"></script>
+
+<script src="../jqueryPage/pagination/jquery.pagination.js"></script>
+<script>
+
+    $(document).ready(function(){
+
+        page();
+
+        function page(){
+
+
+            $('.M-box11').pagination({
+                mode: 'fixed',
+                totalData: $("#count").val(),
+                showData: 5,
+
+                callback: function (api) {
+                    console.log(api.getCurrent())
+                    console.log(api.totalData)
+                    var str = "";
+                    $.ajax({
+
+                        cache: true,
+                        type: "get",
+                        url: "/tests",
+                        data: {
+                            "current": api.getCurrent()
+                        },
+                        dataType: "json",
+
+                        success: function (data) {
+
+                            for (var i in data) {
+
+                                str += "<tr>" +
+                                    "<td align='center'>" + data[i].id + "</td>" +
+                                    "<td align='center'>" + data[i].title + "</td>" +
+                                    "<td align='center'>" + data[i].covers + "</td>" +
+                                    "<td align='center'>" + data[i].tag + "</td>" +
+                                    "<td align='center'>" + data[i].user + "</td>" +
+                                    "<td align='center'>" + data[i].time + "</td>" +
+                                    "<td align='center'>" + data[i].synopsis + "</td>" +
+                                    "<tr>"
+                            }
+
+                            document.getElementById("tbodydata").innerHTML = str;
+
+                        }
+                    })
+
+                },
+
+            },
+                function (api){
+                    console.log(api.getCurrent())
+
+                    var str = "";
+                    $.ajax({
+
+                        cache: true,
+                        type: "get",
+                        url: "/tests",
+                        data: {
+                            "current": api.getCurrent()
+                        },
+                        dataType: "json",
+
+                        success: function (data) {
+
+                            for (var i in data) {
+
+                                str += "<tr>" +
+                                    "<td align='center'>" + data[i].id + "</td>" +
+                                    "<td align='center'>" + data[i].title + "</td>" +
+                                    "<td align='center'>" + data[i].covers + "</td>" +
+                                    "<td align='center'>" + data[i].tag + "</td>" +
+                                    "<td align='center'>" + data[i].user + "</td>" +
+                                    "<td align='center'>" + data[i].time + "</td>" +
+                                    "<td align='center'>" + data[i].synopsis + "</td>" +
+                                    "<tr>"
+                            }
+
+                            document.getElementById("tbodydata").innerHTML = str;
+
+                        }
+                    })
+                })
+
+
+        }
+
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <script src="../bootstrap/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+    <script src="../js/jq-paginator.js"></script>
+</head>
+<body>
+
+<div class="demo customBootstrap" th:fragment="page">
+    <p>当前第 <span id="demo2-text"></span> 页</p>
+    <ul id="demo2" class="pagination"></ul>
+</div>
+
+<script>
+    $('#demo2').jqPaginator({
+
+        totalCounts: pageTotal, //总数据
+        pageSize: 5,//每页显示的数目
+        //totalPages: 100, //总页码
+        visiblePages: 5, //设置最多显示的页码数
+        currentPage: 1,
+
+        first: '<li class="first"><a href="javascript:void(0);">First</a></li>',
+        prev: '<li class="prev"><a href="javascript:void(0);">Previous</a></li>',
+        next: '<li class="next"><a href="javascript:void(0);">Next</a></li>',
+        last: '<li class="last"><a href="javascript:void(0);">Last</a></li>',
+        page: '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
+        onPageChange: function (num) {
+            $('#text').html('当前第' + num + '页');
+            $("#dto").val(num)
+        }
+    })
+</script>
+</body>
+</html>
