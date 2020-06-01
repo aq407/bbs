@@ -28,11 +28,7 @@
                             <div>
                                 <div>
                                     <ul class="list-unstyled list-inline">
-                                        <li class="list-inline-item"><input class="sort" value="默认排序" type="button">
-                                        </li>
-                                        <li class="list-inline-item"><input class="reverse" value="反序" type="button">
-                                        </li>
-
+                                        <!--<先预留-->
                                     </ul>
                                 </div>
                             </div>
@@ -98,8 +94,6 @@
                             data: {"pagenum": num},
                             dataType: "json",
                             success: function (data) {
-                                console.log(data.publicEntities.length)
-
                                 var datalength = data.publicEntities.length;
                                 var str = "";
 
@@ -107,7 +101,7 @@
 
 
                                     str += "<div class='media-left media-middle'>" +
-                                        "<img style='height: 146px;width: 240px' class='media-object img-rounded' alt='profile_pic' src='" + data.publicEntities[i].covers +"'"+ ">" +
+                                        "<img style='height: 146px;width: 240px' class='media-object img-rounded' alt='profile_pic' src='" + data.publicEntities[i].covers + "'" + ">" +
                                         "</div>" +
 
                                         "<div class='media-body'>" +
@@ -139,12 +133,6 @@
                                 }
                                 document.getElementById("divdata").innerHTML = str;
 
-                                $(".clid").click(function () {
-
-                                    var user = $(this).parents("td").attr("id");
-                                    $("#userId").attr("value", user)
-
-                                })
                             }
                         })
                     }

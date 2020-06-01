@@ -57,7 +57,7 @@ public class PublicController {
 
         publicMapper.save(publicEntity);
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 

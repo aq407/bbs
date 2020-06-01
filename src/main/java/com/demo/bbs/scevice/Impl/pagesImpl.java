@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 
 /**
  * 分页
@@ -35,11 +37,8 @@ public class pagesImpl implements PagesService {
         QueryWrapper<PublicEntity> queryWrapper = new QueryWrapper<PublicEntity>();
         queryWrapper.orderByAsc("time");
 
-
         Page<PublicEntity> page = new Page<>(current, size);
         IPage<PublicEntity> iPage = testMapper.selectPage(page, null);
-
-
         return iPage;
     }
 

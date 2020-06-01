@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="../js/ajax.js"></script>
-
 
 </head>
 <body>
@@ -52,6 +50,7 @@
 
                     <div class="media-body">
                         <a class="media-heading" style="color: #6d757a;" th:text="${reply.getUsername()}">留言的用户名</a>
+                        <input th:value="${session.username}" type="hidden" id="userid">
                         <p style="line-height: 20px;padding: 2px 0;font-size: 14px;
                         text-shadow: none;overflow: hidden;word-wrap: break-word;
                         word-break: break-word;" th:text="${reply.getReplyContent()}"></p>
@@ -70,6 +69,7 @@
             <form method="post" th:action="@{'/reply/'+${c.getId()}}" id="reply">
                 <div><h1>回复</h1></div>
                 <input th:value="${c.getTitle()}" name="title" type="hidden" id="title">
+
                 <div class="editormd" id="test-editormd">
 
                     <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
@@ -80,7 +80,7 @@
 
 
             </form>
-            <button class="btn btn-info" style="margin-left: 100%;margin-top: -10%;">回复</button>
+            <button id="to" class="btn btn-info" style="margin-left: 100%;margin-top: -10%;">回复</button>
         </div>
     </div>
 
@@ -187,6 +187,19 @@
 
 </script>
 
+<script>
+    $("#to").click(function () {
+        var userId = $("#userid").val();
+
+        if (userId == null || userId == "") {
+            console.log(userId)
+            alert("请先登录再回复")
+        }
+
+    })
+
+
+</script>
 
 <div th:insert="~{totop :: copy}"></div>
 </body>

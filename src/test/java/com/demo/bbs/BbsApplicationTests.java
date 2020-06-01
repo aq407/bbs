@@ -9,6 +9,8 @@ class BbsApplicationTests {
     @Test
     void contextLoads() {
 
+        byte b= 2;
+        String s = String.valueOf(b);
     }
 
 }

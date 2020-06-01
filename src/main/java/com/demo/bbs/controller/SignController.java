@@ -95,7 +95,6 @@ public class SignController {
     @ResponseBody
     public HashMap sign_in(String username, String password,
                            HttpSession session, HttpServletRequest request) {
-        System.out.println(username);
         HashMap<Object, Object> result = new HashMap(2);
         HashMap hashMap = signMapper.findAll(username);
         /**判断传来的账号和密码是否为空*/
@@ -110,9 +109,6 @@ public class SignController {
             session.setAttribute("username", username);
             session.setAttribute("avatar", hashMap.get("avatar"));
             session.setAttribute("userId", hashMap.get("id"));
-            System.out.println(hashMap.get("avatar"));
-            System.out.println(hashMap.get("id"));
-            System.out.println("登录成功");
             result.put("result", "succeed");
             return result;
         } else {

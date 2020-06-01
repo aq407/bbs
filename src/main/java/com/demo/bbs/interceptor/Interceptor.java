@@ -20,7 +20,8 @@ public class Interceptor implements HandlerInterceptor {
         if(session.getAttribute("username") == null){       //判断session中有没有user信息
             System.out.println("进入拦截器");
 
-            response.sendRedirect("/login");     //没有user信息的话进行路由重定向
+            request.getRequestDispatcher("/login").forward(request,response);
+            //response.sendRedirect("/login");     //没有user信息的话进行路由重定向
             return false;
         }
         return true;        //有的话就继续操作

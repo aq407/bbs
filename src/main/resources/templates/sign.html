@@ -162,13 +162,19 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#r_password").focus(function() {
+        //密码为空弹出提示
+        $("#r_password").focus(function () {
             var paw = $("#r_password").val()
             if (paw.length <= 0) {
                 $(function () {
                     $('#r_password').popover('show');
+                });
+            }
+            if (paw.length > 0) {
+                $(function () {
+                    $('#r_password').popover('hide');
                 });
             }
             $("#r_password").keyup(function () {
@@ -180,20 +186,28 @@
                     });
                 }
 
-                if (paw.length > 0){
-                    $(function () { $('#r_password').popover('hide');});
+                if (paw.length > 0) {
+                    $(function () {
+                        $('#r_password').popover('hide');
+                    });
                 }
             })
 
-        }) //密码为空弹出提示
+        })
 
-        $("#r_password2").focus(function() {
+        //两次密码不一致弹出提示
+        $("#r_password2").focus(function () {
 
             var paw = $("#r_password").val()
             var paw2 = $("#r_password2").val()
             if (paw != paw2) {
                 $(function () {
                     $('#r_password2').popover('show');
+                });
+            }
+            if (paw == paw2) {
+                $(function () {
+                    $('#r_password2').popover('hide');
                 });
             }
 
@@ -207,65 +221,86 @@
                     });
                 }
 
-                if (paw == paw2){
-                    $(function () { $('#r_password2').popover('hide');});
+                if (paw == paw2) {
+                    $(function () {
+                        $('#r_password2').popover('hide');
+                    });
                 }
             })
 
-        }) //两次密码不一致弹出提示
+        })
 
-        $("#r_user_name").focus(function() {
 
-            var paw = $("#r_user_name").val()
+        //用户名为空弹出提示
+        $("#r_user_name").focus(function () {
+
+            let paw = $("#r_user_name").val()
             if (paw.length <= 0) {
                 $(function () {
                     $('#r_user_name').popover('show');
                 });
             }
+            if (paw.length > 0) {
+                $(function () {
+                    $('#r_user_name').popover('hide');
+                });
+            }
+
+
             $("#r_user_name").keyup(function () {
-                var paw = $("#r_user_name").val()
+                paw = $("#r_user_name").val()
                 console.log(paw.length)
                 if (paw.length <= 0) {
                     $(function () {
                         $('#r_user_name').popover('show');
                     });
                 }
-
-                if (paw.length > 0){
-                    $(function () { $('#r_user_name').popover('hide');});
+                if (paw.length > 0) {
+                    $(function () {
+                        $('#r_user_name').popover('hide');
+                    });
                 }
+
             })
 
-        }) //用户名为空弹出提示
+        })
 
-        $("#r_email").focus(function() {
+        //邮箱格式不正确弹出提示
+        $("#r_email").focus(function () {
 
             var r_email = $("#r_email").val()
+            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
             if (r_email.length <= 0) {
                 $(function () {
                     $('#r_email').popover('show');
                 });
             }
+            if (myreg.test(r_email)) {
+                $(function () {
+                    $('#r_email').popover('hide');
+                });
+            }
 
             $("#r_email").keyup(function () {
                 var r_email = $("#r_email").val()
-                var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-
                 if (!myreg.test(r_email)) {
                     $(function () {
                         $('#r_email').popover('show');
                     });
                 }
 
-                if (myreg.test(r_email)){
-                    $(function () { $('#r_email').popover('hide');});
+                if (myreg.test(r_email)) {
+                    $(function () {
+                        $('#r_email').popover('hide');
+                    });
                 }
             })
 
-        }) //邮箱格式不正确弹出提示
-        $("input").blur(function(){
+        })
+        $("input").blur(function () {
             $('#r_password').popover('hide')
         });
+
 
     });
 </script>

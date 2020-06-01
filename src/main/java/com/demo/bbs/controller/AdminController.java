@@ -11,11 +11,12 @@ import com.demo.bbs.mapper.SignMapper;
 import com.demo.bbs.scevice.PagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -82,7 +83,7 @@ public class AdminController {
     @PostMapping("/deleteUser")
     public String deleteId(@RequestParam("userId") Integer userId) {
 
-
+        adminUserMapper.deleteById(userId);
 
         return "redirect:/admin";
 
@@ -98,11 +99,12 @@ public class AdminController {
     }
 
     @PostMapping("/deletePost")
-    @ResponseBody
-    public void delete(@RequestParam("PostId") Long id) {
+    public String delete(@RequestParam("PostId") Long id, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
 
         /**根据id来删除帖子删除*/
         publicMapper.deleteById(id);
+        return "redirect:/admin#tap2";
+
 
     }
 

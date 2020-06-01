@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap.css">
     <link rel="stylesheet" href="../css/admim.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/reset.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/common/highlight.min.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../jqueryPage/pagination/pagination.css" media="screen">
-    <script src="../jqueryPage/pagination/common/highlight.min.js"></script>
-    <script src="../jqueryPage/pagination/jquery.pagination.js"></script>
     <script src="../js/jq-paginator.js"></script>
 
 </head>
@@ -170,19 +164,19 @@
             <div role="tabpanel" class="tab-pane" id="tab3">这是..网络.</div>
 
             <div role="tabpanel" class="tab-pane" id="tab4">
-<!--                <form method="post" action="/logout">-->
-                    <div class="panel panel-success">
-                        <div class="panel-body">
-                            退出登录
-                        </div>
-                        <div class="panel-footer" style="text-align: center">
-
-                            <span>单击按钮退出</span>
-                            <br>
-                            <button class="btn btn-info"><a href="/exit">退出</a></button>
-                        </div>
+                <!--                <form method="post" action="/logout">-->
+                <div class="panel panel-success">
+                    <div class="panel-body">
+                        退出登录
                     </div>
-<!--                </form>-->
+                    <div class="panel-footer" style="text-align: center">
+
+                        <span>单击按钮退出</span>
+                        <br>
+                        <button class="btn btn-info"><a href="/exit">退出</a></button>
+                    </div>
+                </div>
+                <!--                </form>-->
 
             </div>
 
@@ -251,10 +245,10 @@
 
                                         "<form action='/deleteUser' method='post'>" +
                                         "<input name='userId' type='hidden' value=" + data.userEntity[i].id + ">"
-                                        + "<input type='submit' value='删除' id='delete'>"
+                                        + "<input class='btn btn-info' type='submit' value='删除' id='delete'>"
                                         + "</form>" +
                                         "<input class='hh' name='userId' type='hidden' value=" + data.userEntity[i].id + ">"
-                                        + "<input class='clid' type='button' value='修改' id='delete' data-toggle='modal' data-target='#myModal'>"
+                                        + "<input class='clid btn btn-info' type='button' value='修改' id='delete' data-toggle='modal' data-target='#myModal'>"
                                         +
                                         "</td>" +
                                         "</tr>";
@@ -300,7 +294,7 @@
                         "<td align='center'>" + data[i].user + "</td>" +
                         "<td align='center'>" + data[i].time + "</td>" +
                         "<td align='center'>" + data[i].title + "</td>" +
-                        "<td align='center'>" + "<a target='_blank' href=http://127.0.0.1:9090/question/" + data[i].id + ">查看</a>" + "</td>" +
+                        "<td align='center'>" + "<a target='_blank' href=http://localhost:8090/question/" + data[i].id + ">查看</a>" + "</td>" +
                         "<td>\n" +
                         "<form action='/deletePost' method='post'>" +
                         "<input name='PostId' type='hidden' value=" + data[i].id + ">"
