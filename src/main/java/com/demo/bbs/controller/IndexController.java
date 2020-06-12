@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
@@ -48,8 +49,9 @@ public class IndexController {
 
 
         IPage<PublicEntity> ipage = pagesService.publicPages(pagenum, 10L);
-        List result = ipage.getRecords();
 
+
+        ArrayList result = (ArrayList) ipage.getRecords();
 
         PagesEntity pagesEntity = new PagesEntity();
         pagesEntity.setPublicEntities(result);

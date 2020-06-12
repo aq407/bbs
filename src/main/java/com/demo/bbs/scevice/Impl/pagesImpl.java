@@ -35,11 +35,12 @@ public class pagesImpl implements PagesService {
 
     public IPage<PublicEntity> publicPages(Long current, Long size) {
         QueryWrapper<PublicEntity> queryWrapper = new QueryWrapper<PublicEntity>();
-        queryWrapper.orderByAsc("time");
+        queryWrapper.orderByDesc("time");
 
         Page<PublicEntity> page = new Page<>(current, size);
-        IPage<PublicEntity> iPage = testMapper.selectPage(page, null);
+        IPage<PublicEntity> iPage = testMapper.selectPage(page, queryWrapper);
         return iPage;
+
     }
 
     @Override

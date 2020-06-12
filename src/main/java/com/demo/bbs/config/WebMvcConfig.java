@@ -25,9 +25,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     }
 
+    /**
+     * 图片回显
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/user/**").addResourceLocations("file:G:/java ee/bbs/src/main/resources/static/user/");
+        //registry.addResourceHandler("/image/**").addResourceLocations("file:G:/java ee/bbs/src/main/resources/static/image/");
+        registry.addResourceHandler("/image/**").addResourceLocations("file:/root/projects/src/main/resources/static/image/");
     }
 
 

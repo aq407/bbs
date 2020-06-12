@@ -3,11 +3,14 @@ package com.demo.bbs.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Data
 @TableName("public")
+@Configuration
 public class PublicEntity {
 
     @TableId(value = "Id")

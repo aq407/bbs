@@ -13,5 +13,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AdminUserMapper extends BaseMapper<UserEntity> {
     @Update("UPDATE sign_up SET password=#{password}, email = #{email} WHERE id=#{id}")
-    void updateById(String password, String email, Integer id);
+     void updateById(String password, String email, Integer id);
 }

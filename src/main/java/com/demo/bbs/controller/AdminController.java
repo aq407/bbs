@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,6 +69,8 @@ public class AdminController {
         List result = ipage.getRecords();
         PageEntity pageEntity = new PageEntity();
         //Collections.reverse(result);倒叙排序
+
+
         pageEntity.setTotal(ipage.getTotal());
         pageEntity.setUserEntity(result);
 

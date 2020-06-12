@@ -62,13 +62,13 @@ public class QuestionController {
                                      HttpSession session,
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
-        String text1 = request.getParameter("text1");
+        String text1 = request.getParameter("text1").trim();
         String title = request.getParameter("title");
-        Map<String, String> map = new HashMap<>(2);
-        Object loginName = session.getAttribute("userId");
+        Map<String, String> map = new HashMap<>(16);
+        Object loginName = session.getAttribute("username");
 
-
-        if (loginName == null) {
+        System.out.println(loginName);
+        if (loginName == null || text1 == null) {
 
             map.put("result", "fail");
 

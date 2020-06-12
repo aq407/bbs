@@ -32,7 +32,7 @@ public class UploadImpl implements UploadService {
             System.out.println("文件的绝对路径file path:" + destFile.getAbsolutePath());//输出目标文件的绝对路径
 
             String paht = (String) session.getAttribute("username");
-            File upload = new File(destFile.getAbsolutePath(), "src/main/resources/static/user/" + paht);
+            File upload = new File(destFile.getAbsolutePath(), "src/main/resources/static/image/" + paht);
 
             if (!upload.exists()) {
                 upload.mkdirs();//若目标文件夹不存在，则创建

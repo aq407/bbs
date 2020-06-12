@@ -141,12 +141,18 @@
 
         $("#reply")[0].reset();
 
+        let userId = $("#userid").val();
         var text = $("#text").val();
         var pwd = $("#pwd").text();
-        var text1 = $('#text1').val();
+        let text1 = $('#text1').val().trim();
         var title = $('#title').val();
 
         var reply = $("#reply").attr("action");
+        console.log(userId)
+        if (userId == null || userId == undefined || userId == "") {
+            alert("请登录再回复")
+        }
+
         if (text1 == null || text1 == "") {
             alert("请输入回复内容")
         } else {
@@ -187,19 +193,19 @@
 
 </script>
 
-<script>
-    $("#to").click(function () {
-        var userId = $("#userid").val();
+<!--<script>-->
+<!--    $("#to").click(function () {-->
+<!--        var userId = $("#userid").val();-->
+<!--        console.log(userId)-->
+<!--        if (userId == null || userId == "") {-->
+<!--            console.log(userId)-->
+<!--            alert("请先登录再回复")-->
+<!--        }-->
 
-        if (userId == null || userId == "") {
-            console.log(userId)
-            alert("请先登录再回复")
-        }
-
-    })
+<!--    })-->
 
 
-</script>
+<!--</script>-->
 
 <div th:insert="~{totop :: copy}"></div>
 </body>
